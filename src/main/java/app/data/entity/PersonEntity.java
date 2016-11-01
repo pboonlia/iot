@@ -1,26 +1,18 @@
-package app.model;
+package app.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Person {
+@Document
+public class PersonEntity {
 
-	@JsonProperty("id")
-	private String id;
+	@Id private String id;
 
-	@JsonProperty("firstName")
 	private String firstName;
-
-	@JsonProperty("lastName")
 	private String lastName;
-
+	
 	public String getId() {
 		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public String getFirstName() {
@@ -38,5 +30,4 @@ public class Person {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
 }

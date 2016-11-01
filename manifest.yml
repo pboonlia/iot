@@ -1,0 +1,6 @@
+---
+applications:
+  - name: person-app
+    buildpack: java-buildpack
+    path: build/libs/iot-service-0.1.0.jar
+    timeout : 180

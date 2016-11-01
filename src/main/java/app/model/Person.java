@@ -1,13 +1,15 @@
 package app.model;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Person {
+public class Person extends ResourceSupport {
 
 	@JsonProperty("id")
-	private String id;
+	private String personId;
 
 	@JsonProperty("firstName")
 	private String firstName;
@@ -15,12 +17,12 @@ public class Person {
 	@JsonProperty("lastName")
 	private String lastName;
 
-	public String getId() {
-		return id;
+	public String getPersonId() {
+		return personId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setPersonId(String personId) {
+		this.personId = personId;
 	}
 
 	public String getFirstName() {

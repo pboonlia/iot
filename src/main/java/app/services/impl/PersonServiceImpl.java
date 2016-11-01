@@ -24,7 +24,7 @@ public class PersonServiceImpl implements PersonService {
 		List<Person> personList = new ArrayList<>();
 		for (PersonEntity personEntity : personEntityList) {
 			Person person = new Person();
-			person.setId(personEntity.getId());
+			person.setPersonId(personEntity.getId());
 			person.setFirstName(personEntity.getFirstName());
 			person.setLastName(personEntity.getLastName());
 			personList.add(person);
@@ -37,7 +37,7 @@ public class PersonServiceImpl implements PersonService {
 		// TODO Auto-generated method stub
 		PersonEntity personEntity = personRepository.findOne(id);
 		Person person = new Person();
-		person.setId(personEntity.getId());
+		person.setPersonId(personEntity.getId());
 		person.setFirstName(personEntity.getFirstName());
 		person.setLastName(personEntity.getLastName());
 		return person;
@@ -50,7 +50,7 @@ public class PersonServiceImpl implements PersonService {
 		personEntity.setFirstName(person.getFirstName());
 		personEntity.setLastName(person.getLastName());
 		personEntity = personRepository.save(personEntity);
-		person.setId(personEntity.getId());
+		person.setPersonId(personEntity.getId());
 		return person;
 	}
 

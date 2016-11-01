@@ -6,25 +6,25 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import app.data.repository.PersonRepository;
 import app.model.Person;
-import app.data.entity.PersonEntity;
+import app.mongoclient.impl.PersonMongoImpl;
+import app.mongoclient.model.PersonEntity;
 import app.services.PersonService;
 
 @Service
 public class PersonServiceImpl implements PersonService {
 
 	@Autowired
-	private PersonRepository personRepository;
+	private PersonMongoImpl personMongoImpl;
 
 	@Override
 	public List<Person> findAll() {
 		// TODO Auto-generated method stub
-		List<PersonEntity> personEntityList = personRepository.findAll();
+		List<PersonEntity> personEntityList = personMongoImpl.findAll();
 		List<Person> personList = new ArrayList<>();
 		for (PersonEntity personEntity : personEntityList) {
 			Person person = new Person();
-			person.setPersonId(personEntity.getId());
+			person.setPersonId(personEntity.getId().getOid());
 			person.setFirstName(personEntity.getFirstName());
 			person.setLastName(personEntity.getLastName());
 			personList.add(person);
@@ -35,9 +35,9 @@ public class PersonServiceImpl implements PersonService {
 	@Override
 	public Person find(String id) {
 		// TODO Auto-generated method stub
-		PersonEntity personEntity = personRepository.findOne(id);
+		PersonEntity personEntity = personMongoImpl.findById(id);
 		Person person = new Person();
-		person.setPersonId(personEntity.getId());
+		person.setPersonId(personEntity.getId().getOid());
 		person.setFirstName(personEntity.getFirstName());
 		person.setLastName(personEntity.getLastName());
 		return person;
@@ -49,15 +49,14 @@ public class PersonServiceImpl implements PersonService {
 		PersonEntity personEntity = new PersonEntity();
 		personEntity.setFirstName(person.getFirstName());
 		personEntity.setLastName(person.getLastName());
-		personEntity = personRepository.save(personEntity);
-		person.setPersonId(personEntity.getId());
+		personEntity = personMongoImpl.save(personEntity);
+		person.setPersonId(personEntity.getId().getOid());
 		return person;
 	}
 
 	@Override
 	public void update(String id, Person person) {
-		// TODO Auto-generated method stub
-		PersonEntity personEntity = personRepository.findOne(id);
+		PersonEntity personEntity = personMongoImpl.findById(id);
 		if (personEntity == null) {
 			return;
 		}
@@ -70,14 +69,13 @@ public class PersonServiceImpl implements PersonService {
 			personEntity.setLastName(person.getLastName());
 		}
 
-		personRepository.save(personEntity);
+		personMongoImpl.save(personEntity);
 
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
-		personRepository.delete(id);
+		personMongoImpl.delete(id);
 	}
 
 }
